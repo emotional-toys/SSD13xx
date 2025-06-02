@@ -5,10 +5,12 @@
     <Nullable>disable</Nullable>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\Ssd13xx.csproj" />
+    <PackageReference Include="Iot.Device.Bindings" Version="4.0.1" />
+    <PackageReference Include="Iot.Device.Bindings.SkiaSharpAdapter" Version="4.0.1" />
+    <PackageReference Include="System.Device.Gpio" Version="4.0.1" />
   </ItemGroup>
+
   <ItemGroup>
     <None Update="images\*.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
