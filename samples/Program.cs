@@ -14,6 +14,7 @@ using Iot.Device.Ssd13xx;
 /// </summary>
 public class Program
 {
+    Ssd1306 SSD1306 { get; set; }
     /// <summary>
     /// Entry point
     /// </summary>
@@ -30,11 +31,11 @@ public class Program
 
     private void Run(string[] args)
     {
-        ArduinoBoard? board = null;
+        ArduinoBoard board = null;
         Ssd13xx device;
         Console.WriteLine("Using direct I2C protocol");
 
-        I2cDevice? i2cDevice = null;
+        I2cDevice i2cDevice = null;
 
         if (args.Any(x => x == "--arduino"))
         {
@@ -55,17 +56,22 @@ public class Program
         }
         else
         {
-            var device2 = new Ssd1306(i2cDevice, 128, 32);
-            device = device2;
+            Console.WriteLine("Tappin' the SSD1306...");
+            try
+            {
+                SSD1306 = new Ssd1306(i2cDevice, 128, 32);
+                device = SSD1306;
+            }
+            catch { Exception ex; }
         }
 
-        device.ClearScreen();
-        DisplayImages(device);
-        DisplayClock(device);
-        device.ClearScreen();
-        // SendMessage(device, "Hello .NET IoT!!!");
-        device.Dispose();
-        board?.Dispose();
+        SSD1306.ClearScreen();
+        DisplayImages(SSD1306);
+        DisplayClock(SSD1306);
+        SSD1306.ClearScreen();
+        //SendMessage(device, "Hello .NET IoT!!!");
+        SSD1306.Dispose();
+        board.Dispose();
     }
 
     private void DisplayImages(GraphicDisplay ssd1306)
